@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in Supply Chain & Procurement - Comprehensive Use Cases</title>
+    <style>
+        :root {
+            --primary-color: #f59e0b;
+            --secondary-color: #ef4444;
+            --accent-color: #22c55e;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --supply-orange: #f59e0b;
+            --procurement-red: #ef4444;
+            --logistics-green: #22c55e;
+            --warehouse-blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color), #0b1220);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--supply-orange), var(--procurement-red), var(--logistics-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: var(--primary-color);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, var(--supply-orange), var(--logistics-green));
+            border: none;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--supply-orange), var(--logistics-green), var(--procurement-red));
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .icon.ml { background: rgba(245, 158, 11, 0.2); color: var(--supply-orange); }
+        .icon.gen { background: rgba(239, 68, 68, 0.2); color: var(--procurement-red); }
+        .icon.ag { background: rgba(34, 197, 94, 0.2); color: var(--logistics-green); }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-content {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--supply-orange), var(--logistics-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .architecture-item::before {
+            content: '→';
+            color: var(--supply-orange);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(34, 197, 94, 0.1));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-title {
+            color: var(--supply-orange);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--supply-orange);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .supply-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .procurement-badge {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        .logistics-badge {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 AI in Supply Chain & Procurement</h1>
+            <p class="subtitle">Comprehensive Guide to Machine Learning, Generative AI, and Agentic Systems in Logistics, Inventory, and Strategic Sourcing</p>
+        </header>
+
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('ml')">🔮 ML / Predictive</button>
+            <button class="nav-btn" onclick="showSection('gen')">✍️ Generative AI</button>
+            <button class="nav-btn" onclick="showSection('agentic')">🤖 Agentic AI</button>
+        </div>
+
+        <!-- ML / Predictive Use Cases -->
+        <div id="ml" class="content-section active">
+            <h2 class="section-title">🔮 Machine Learning & Predictive Analytics</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Advanced statistical models and algorithms for supply chain optimization, demand forecasting, and procurement intelligence
+            </p>
+
+            <div class="card-grid">
+                <!-- Demand Forecasting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📊</div>
+                        <div>
+                            <div class="card-title">Demand Forecasting</div>
+                            <div class="card-subtitle">SKU-Level Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict future demand at SKU level to optimize inventory, reduce stockouts, and minimize carrying costs.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Time Series Analysis</span>
+                            <span class="tech-tag">SKU Forecasting</span>
+                            <span class="tech-tag">Demand Planning</span>
+                            <span class="tech-tag">Inventory Optimization</span>
+                            <span class="tech-tag">Sales Prediction</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Historical Sales → Seasonal Analysis → Trend Analysis → External Factors → Demand Forecast → Inventory Planning</div>
+                            <div class="architecture-item">Sales Data → Market Trends → Promotions → Holidays → Forecasting → Replenishment</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical sales data by SKU</li>
+                                <li>Seasonal patterns and trends</li>
+                                <li>Market and economic indicators</li>
+                                <li>Promotional calendar</li>
+                                <li>Competitor pricing data</li>
+                                <li>Customer behavior patterns</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Forecast Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Stockout Reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">20-40%</div>
+                                <div class="metric-label">Inventory Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supplier Risk Scoring -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">⚠️</div>
+                        <div>
+                            <div class="card-title">Supplier Risk Scoring</div>
+                            <div class="card-subtitle">Risk Assessment</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Assess and predict supplier risks including financial stability, delivery reliability, and quality issues.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Risk Assessment</span>
+                            <span class="tech-tag">Supplier Analysis</span>
+                            <span class="tech-tag">Financial Risk</span>
+                            <span class="tech-tag">Quality Risk</span>
+                            <span class="tech-tag">Supply Continuity</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Supplier Data → Financial Analysis → Performance History → Risk Scoring → Monitoring → Mitigation</div>
+                            <div class="architecture-item">Supplier Profile → Risk Factors → Scoring Model → Risk Assessment → Alerts → Actions</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Supplier financial data</li>
+                                <li>Delivery performance history</li>
+                                <li>Quality defect records</li>
+                                <li>Geopolitical risk factors</li>
+                                <li>Industry benchmarks</li>
+                                <li>Supplier capacity data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Risk Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Disruption Prevention</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Supplier Performance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Optimization -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📦</div>
+                        <div>
+                            <div class="card-title">Inventory Optimization</div>
+                            <div class="card-subtitle">Stock Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Optimize inventory levels across the supply chain to balance service levels with carrying costs.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Inventory Management</span>
+                            <span class="tech-tag">Stock Optimization</span>
+                            <span class="tech-tag">Service Level</span>
+                            <span class="tech-tag">Carrying Costs</span>
+                            <span class="tech-tag">Replenishment</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Demand Forecast → Lead Time → Service Level → Optimization → Replenishment → Monitoring</div>
+                            <div class="architecture-item">Inventory Data → Cost Analysis → Optimization Model → Stock Levels → Execution → Review</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Current inventory levels</li>
+                                <li>Lead time data</li>
+                                <li>Carrying cost rates</li>
+                                <li>Service level requirements</li>
+                                <li>Replenishment costs</li>
+                                <li>Storage capacity constraints</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">75-85%</div>
+                                <div class="metric-label">Cost Reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Service Level</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Inventory Reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lead Time Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">⏱️</div>
+                        <div>
+                            <div class="card-title">Lead Time Prediction</div>
+                            <div class="card-subtitle">Delivery Forecasting</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict accurate lead times for suppliers and logistics to improve planning and customer service.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Lead Time Analysis</span>
+                            <span class="tech-tag">Delivery Prediction</span>
+                            <span class="tech-tag">Logistics Planning</span>
+                            <span class="tech-tag">Supplier Performance</span>
+                            <span class="tech-tag">Route Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Historical Data → Route Analysis → Seasonal Factors → External Events → Lead Time Prediction → Planning</div>
+                            <div class="architecture-item">Supplier Data → Transportation → Customs → Weather → Prediction → Optimization</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical lead time data</li>
+                                <li>Transportation route information</li>
+                                <li>Customs and regulatory data</li>
+                                <li>Weather patterns</li>
+                                <li>Supplier performance metrics</li>
+                                <li>Seasonal demand patterns</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Prediction Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Planning Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Stockout Reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disruption Probability Modeling -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🚨</div>
+                        <div>
+                            <div class="card-title">Disruption Probability</div>
+                            <div class="card-subtitle">Risk Modeling</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict probability of supply chain disruptions from various sources including natural disasters, geopolitical events, and supplier issues.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Risk Modeling</span>
+                            <span class="tech-tag">Disruption Prediction</span>
+                            <span class="tech-tag">Geopolitical Risk</span>
+                            <span class="tech-tag">Natural Disasters</span>
+                            <span class="tech-tag">Supply Continuity</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Risk Factors → Probability Modeling → Impact Assessment → Mitigation Planning → Monitoring → Response</div>
+                            <div class="architecture-item">External Data → Risk Analysis → Probability → Impact → Planning → Execution</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Geopolitical risk data</li>
+                                <li>Natural disaster patterns</li>
+                                <li>Supplier dependency analysis</li>
+                                <li>Transportation route risks</li>
+                                <li>Historical disruption data</li>
+                                <li>Market volatility indicators</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">75-85%</div>
+                                <div class="metric-label">Disruption Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Response Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Impact Reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Inflation Forecasting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">💰</div>
+                        <div>
+                            <div class="card-title">Cost Inflation Forecasting</div>
+                            <div class="card-subtitle">Price Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict material and logistics cost inflation to support pricing strategies and budget planning.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Cost Analysis</span>
+                            <span class="tech-tag">Inflation Prediction</span>
+                            <span class="tech-tag">Price Forecasting</span>
+                            <span class="tech-tag">Budget Planning</span>
+                            <span class="tech-tag">Market Analysis</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Market Data → Economic Indicators → Commodity Prices → Currency Rates → Inflation Forecast → Strategy</div>
+                            <div class="architecture-item">Historical Costs → Trends → External Factors → Prediction → Planning → Action</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical material costs</li>
+                                <li>Commodity market data</li>
+                                <li>Currency exchange rates</li>
+                                <li>Economic indicators</li>
+                                <li>Supplier pricing trends</li>
+                                <li>Logistics cost data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">75-85%</div>
+                                <div class="metric-label">Forecast Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Cost Savings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Budget Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generative AI Use Cases -->
+        <div id="gen" class="content-section">
+            <h2 class="section-title">✍️ Generative AI Applications</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                AI-powered content creation, documentation, and communication for procurement processes and supply chain management
+            </p>
+
+            <div class="card-grid">
+                <!-- RFP Drafting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📝</div>
+                        <div>
+                            <div class="card-title">RFP Drafting</div>
+                            <div class="card-subtitle">Procurement Documents</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive Request for Proposal documents tailored to specific procurement needs and supplier requirements.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">RFP Generation</span>
+                            <span class="tech-tag">Procurement Documents</span>
+                            <span class="tech-tag">Supplier Requirements</span>
+                            <span class="tech-tag">Evaluation Criteria</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Procurement Needs → Requirements Analysis → RFP Generation → Review → Publication → Evaluation</div>
+                            <div class="architecture-item">Business Requirements → Technical Specs → Evaluation → Documentation → Supplier Response</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Procurement requirements</li>
+                                <li>Technical specifications</li>
+                                <li>Supplier evaluation criteria</li>
+                                <li>Industry standards</li>
+                                <li>Legal and compliance requirements</li>
+                                <li>Historical RFP templates</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">RFP Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Supplier Response</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">4-6 hours</div>
+                                <div class="metric-label">RFP Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supplier Evaluation Summaries -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📋</div>
+                        <div>
+                            <div class="card-title">Supplier Evaluation</div>
+                            <div class="card-subtitle">Performance Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive supplier evaluation summaries based on performance data, quality metrics, and delivery reliability.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Supplier Analysis</span>
+                            <span class="tech-tag">Performance Reports</span>
+                            <span class="tech-tag">Quality Assessment</span>
+                            <span class="tech-tag">Risk Evaluation</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Performance Data → Quality Metrics → Delivery Analysis → Risk Assessment → Summary Generation → Recommendations</div>
+                            <div class="architecture-item">Supplier Data → Evaluation → Analysis → Reporting → Decision → Action</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Supplier performance data</li>
+                                <li>Quality defect records</li>
+                                <li>Delivery timeliness metrics</li>
+                                <li>Cost competitiveness data</li>
+                                <li>Risk assessment results</li>
+                                <li>Contract compliance data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Evaluation Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Decision Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">5-10 minutes</div>
+                                <div class="metric-label">Summary Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contract Drafting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📄</div>
+                        <div>
+                            <div class="card-title">Contract Drafting</div>
+                            <div class="card-subtitle">Procurement Contracts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive procurement contracts with terms, conditions, and compliance requirements tailored to specific supplier relationships.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Contract Generation</span>
+                            <span class="tech-tag">Legal Terms</span>
+                            <span class="tech-tag">Compliance Requirements</span>
+                            <span class="tech-tag">Supplier Agreements</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Contract Requirements → Legal Review → Terms Generation → Compliance Check → Finalization → Execution</div>
+                            <div class="architecture-item">Business Terms → Legal Clauses → Risk Mitigation → Contract Drafting → Approval → Signing</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Contract templates</li>
+                                <li>Legal compliance requirements</li>
+                                <li>Supplier terms and conditions</li>
+                                <li>Risk mitigation clauses</li>
+                                <li>Industry standards</li>
+                                <li>Regulatory requirements</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Contract Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Compliance Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">6-8 hours</div>
+                                <div class="metric-label">Contract Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Procurement Analytics Narratives -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📊</div>
+                        <div>
+                            <div class="card-title">Procurement Analytics</div>
+                            <div class="card-subtitle">Data Narratives</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate insightful narratives and explanations for procurement analytics data to support strategic decision-making.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Analytics Narratives</span>
+                            <span class="tech-tag">Data Interpretation</span>
+                            <span class="tech-tag">Strategic Insights</span>
+                            <span class="tech-tag">Procurement Reporting</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Analytics Data → Trend Analysis → Insight Generation → Narrative Creation → Reporting → Decision Support</div>
+                            <div class="architecture-item">Data Analysis → Pattern Recognition → Explanation → Context → Recommendations → Action</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Procurement spend data</li>
+                                <li>Supplier performance metrics</li>
+                                <li>Market trend analysis</li>
+                                <li>Cost savings data</li>
+                                <li>Risk assessment results</li>
+                                <li>Strategic objectives</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Insight Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Decision Support</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">3-5 minutes</div>
+                                <div class="metric-label">Narrative Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vendor Communication Templates -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">💬</div>
+                        <div>
+                            <div class="card-title">Vendor Communication</div>
+                            <div class="card-subtitle">Supplier Messaging</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate professional and effective communication templates for vendor interactions, negotiations, and relationship management.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Communication Templates</span>
+                            <span class="tech-tag">Vendor Relations</span>
+                            <span class="tech-tag">Negotiation Support</span>
+                            <span class="tech-tag">Professional Messaging</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Communication Purpose → Template Selection → Customization → Review → Sending → Follow-up</div>
+                            <div class="architecture-item">Message Context → Tone Setting → Content Generation → Professional Review → Communication</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vendor communication history</li>
+                                <li>Communication templates</li>
+                                <li>Negotiation strategies</li>
+                                <li>Professional standards</li>
+                                <li>Cultural considerations</li>
+                                <li>Relationship management</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Communication Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Vendor Satisfaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">3-5 minutes</div>
+                                <div class="metric-label">Template Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spend Analysis Summaries -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">💰</div>
+                        <div>
+                            <div class="card-title">Spend Analysis</div>
+                            <div class="card-subtitle">Cost Optimization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive spend analysis summaries to identify cost-saving opportunities and optimize procurement strategies.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Spend Analysis</span>
+                            <span class="tech-tag">Cost Optimization</span>
+                            <span class="tech-tag">Savings Opportunities</span>
+                            <span class="tech-tag">Procurement Strategy</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Spend Data → Category Analysis → Trend Analysis → Savings Identification → Strategy Development → Implementation</div>
+                            <div class="architecture-item">Cost Analysis → Pattern Recognition → Optimization → Recommendations → Execution → Monitoring</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical spend data</li>
+                                <li>Category classifications</li>
+                                <li>Supplier spend analysis</li>
+                                <li>Market pricing data</li>
+                                <li>Cost drivers</li>
+                                <li>Savings benchmarks</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Analysis Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Cost Savings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">4-6 hours</div>
+                                <div class="metric-label">Analysis Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agentic AI Use Cases -->
+        <div id="agentic" class="content-section">
+            <h2 class="section-title">🤖 Agentic AI Systems</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Autonomous AI agents that can reason, plan, and execute complex supply chain and procurement operations
+            </p>
+
+            <div class="card-grid">
+                <!-- Procurement Orchestration Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🔄</div>
+                        <div>
+                            <div class="card-title">Procurement Orchestration</div>
+                            <div class="card-subtitle">End-to-End Automation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automate and orchestrate the entire procurement process from requisition to payment, optimizing for cost, quality, and compliance.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Procurement Automation</span>
+                            <span class="tech-tag">Process Orchestration</span>
+                            <span class="tech-tag">Cost Optimization</span>
+                            <span class="tech-tag">Compliance Management</span>
+                            <span class="tech-tag">Supplier Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Requisition → Supplier Selection → Negotiation → Contracting → Ordering → Receiving → Payment</div>
+                            <div class="architecture-item">Need Identification → Sourcing → Evaluation → Selection → Execution → Monitoring</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Requisition workflows</li>
+                                <li>Supplier databases</li>
+                                <li>Negotiation protocols</li>
+                                <li>Contract templates</li>
+                                <li>Approval processes</li>
+                                <li>Payment terms</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Process Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Cost Reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Compliance Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supplier Risk Monitoring Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">⚠️</div>
+                        <div>
+                            <div class="card-title">Supplier Risk Monitoring</div>
+                            <div class="card-subtitle">Continuous Assessment</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Continuously monitor supplier risks and provide real-time alerts for potential disruptions or performance issues.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Risk Monitoring</span>
+                            <span class="tech-tag">Real-time Alerts</span>
+                            <span class="tech-tag">Supplier Performance</span>
+                            <span class="tech-tag">Disruption Detection</span>
+                            <span class="tech-tag">Mitigation Planning</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Data Collection → Risk Analysis → Alert Generation → Escalation → Mitigation → Resolution</div>
+                            <div class="architecture-item">Supplier Monitoring → Risk Assessment → Alert System → Response Planning → Action</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Supplier performance data</li>
+                                <li>Financial monitoring</li>
+                                <li>News and event feeds</li>
+                                <li>Delivery tracking</li>
+                                <li>Quality metrics</li>
+                                <li>Risk thresholds</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Risk Detection</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">24/7</div>
+                                <div class="metric-label">Monitoring</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">3-5 minutes</div>
+                                <div class="metric-label">Alert Response</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Rebalancing Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">📦</div>
+                        <div>
+                            <div class="card-title">Inventory Rebalancing</div>
+                            <div class="card-subtitle">Stock Optimization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically rebalance inventory across warehouses and distribution centers based on demand patterns and service level requirements.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Inventory Management</span>
+                            <span class="tech-tag">Stock Rebalancing</span>
+                            <span class="tech-tag">Demand Optimization</span>
+                            <span class="tech-tag">Warehouse Coordination</span>
+                            <span class="tech-tag">Service Level</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Demand Analysis → Stock Assessment → Rebalancing → Transportation → Execution → Monitoring</div>
+                            <div class="architecture-item">Inventory Data → Optimization → Movement Planning → Execution → Tracking → Adjustment</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Inventory levels by location</li>
+                                <li>Demand forecasts</li>
+                                <li>Transportation costs</li>
+                                <li>Service level requirements</li>
+                                <li>Warehouse capacity</li>
+                                <li>Replenishment schedules</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Stock Optimization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Stockout Reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Carrying Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contract Lifecycle Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">📄</div>
+                        <div>
+                            <div class="card-title">Contract Lifecycle</div>
+                            <div class="card-subtitle">Automated Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Manage the complete contract lifecycle from creation and negotiation to renewal and compliance monitoring.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Contract Management</span>
+                            <span class="tech-tag">Lifecycle Automation</span>
+                            <span class="tech-tag">Compliance Monitoring</span>
+                            <span class="tech-tag">Renewal Management</span>
+                            <span class="tech-tag">Risk Assessment</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Contract Creation → Negotiation → Approval → Execution → Monitoring → Renewal → Archiving</div>
+                            <div class="architecture-item">Template Selection → Customization → Review → Signing → Tracking → Management</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Contract templates</li>
+                                <li>Approval workflows</li>
+                                <li>Compliance requirements</li>
+                                <li>Risk assessment criteria</li>
+                                <li>Renewal schedules</li>
+                                <li>Performance metrics</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Contract Compliance</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Process Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Renewal Success</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autonomous Sourcing Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🎯</div>
+                        <div>
+                            <div class="card-title">Autonomous Sourcing</div>
+                            <div class="card-subtitle">Smart Procurement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically identify and qualify suppliers, negotiate terms, and execute sourcing decisions based on predefined criteria.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Supplier Discovery</span>
+                            <span class="tech-tag">Automated Negotiation</span>
+                            <span class="tech-tag">Smart Sourcing</span>
+                            <span class="tech-tag">Cost Optimization</span>
+                            <span class="tech-tag">Quality Assurance</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Requirement Analysis → Supplier Search → Qualification → Negotiation → Selection → Contracting</div>
+                            <div class="architecture-item">Market Analysis → Supplier Evaluation → Price Negotiation → Terms Agreement → Execution</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Supplier databases</li>
+                                <li>Market pricing data</li>
+                                <li>Quality standards</li>
+                                <li>Negotiation parameters</li>
+                                <li>Risk criteria</li>
+                                <li>Performance benchmarks</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Sourcing Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Cost Savings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Supplier Quality</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logistics Coordination Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🚚</div>
+                        <div>
+                            <div class="card-title">Logistics Coordination</div>
+                            <div class="card-subtitle">Transportation Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Optimize and coordinate transportation and logistics operations including route planning, carrier selection, and shipment tracking.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Logistics Optimization</span>
+                            <span class="tech-tag">Route Planning</span>
+                            <span class="tech-tag">Carrier Management</span>
+                            <span class="tech-tag">Shipment Tracking</span>
+                            <span class="tech-tag">Cost Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Shipment Planning → Carrier Selection → Route Optimization → Tracking → Delivery → Analysis</div>
+                            <div class="architecture-item">Load Planning → Transportation → Monitoring → Delivery → Feedback → Optimization</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Shipment requirements</li>
+                                <li>Carrier capabilities</li>
+                                <li>Route optimization data</li>
+                                <li>Tracking systems</li>
+                                <li>Delivery schedules</li>
+                                <li>Cost structures</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Route Optimization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Transportation Costs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">On-time Delivery</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>✨ Built with cutting-edge AI technologies for the future of supply chain and procurement management</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                Note: Implementation requires careful consideration of supplier relationships, compliance, and risk management
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
